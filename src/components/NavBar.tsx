@@ -1,19 +1,49 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Button } from '@chakra-ui/button'
 import { routePaths } from 'config/routes'
 import { NavLink } from 'react-router-dom'
-import { Center, Flex, Heading } from '@chakra-ui/layout'
+import { Center, Flex, Heading, Text } from '@chakra-ui/layout'
 import { logout } from 'services/auth'
 import { Icon, Image, useMediaQuery } from '@chakra-ui/react'
-import { FaSignOutAlt, FaPlus } from 'react-icons/fa'
+import { FaSignOutAlt, FaPlus, FaBell } from 'react-icons/fa'
 import ColorModeToggle from './ColorModeToggle'
 import { useHistory } from 'react-router'
 import Logo from 'assets/logo.svg'
 import AvatarImage from './AvatarImage'
+import { Menu, MenuButton, MenuList, MenuItem } from '@chakra-ui/menu'
+import { fetchNotifications } from 'services/notificationService'
+import { slice } from 'lodash'
+import { useDisclosure, useInterval } from '@chakra-ui/hooks'
+import NotificationModal from './NotificationModal'
+import { NotificationDto } from 'types/dto'
 
 const NavBar: React.FC<any> = () => {
   const history = useHistory()
   const [isLargeScreen] = useMediaQuery('(min-width: 768px)')
+  const [notifications, setNotifications] = useState<NotificationDto[]>([])
+  const [activeNotifications, setActiveNotifications] = useState<
+    NotificationDto[]
+  >([])
+  const modal = useDisclosure()
+
+  useEffect(() => {
+    fetchNotifications().then(res => setNotifications(res))
+  }, [])
+
+  useEffect(() => {
+    if (notifications) {
+      const active = notifications.filter(
+        notification => notification.status === 'active'
+      )
+      setActiveNotifications(active)
+    }
+  }, [notifications])
+
+  useInterval(async () => {
+    console.log('checking notifications')
+    const data = await fetchNotifications()
+    setNotifications(data)
+  }, 5000)
 
   return (
     <Flex
@@ -48,6 +78,33 @@ const NavBar: React.FC<any> = () => {
             w="40px"
             onClick={() => history.push(routePaths.MY_PROFILE)}
           />
+          <Menu>
+            <MenuButton mr="3" as={Button} position="relative">
+              <Icon as={FaBell} />
+              {activeNotifications.length > 0 && (
+                <Text position="absolute" top="5px" right="5px">
+                  {activeNotifications.length}
+                </Text>
+              )}
+            </MenuButton>
+            <MenuList>
+              {notifications.reverse().map(notification => (
+                <>
+                  <MenuItem key={notification._id} onClick={modal.onOpen}>
+                    {slice(
+                      `${notification.title} - ${notification.description}`,
+                      0,
+                      25
+                    )}
+                  </MenuItem>
+                  <NotificationModal notification={notification} {...modal} />
+                </>
+              ))}
+              {notifications.length <= 0 && (
+                <MenuItem disabled>No notifications</MenuItem>
+              )}
+            </MenuList>
+          </Menu>
           <Button mr="3" onClick={logout}>
             <Icon as={FaSignOutAlt} />
           </Button>

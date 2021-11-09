@@ -55,3 +55,14 @@ export interface NewReview {
   ratedUser: string
   createdBy: string
 }
+
+export interface NotificationDto {
+  _id: string
+  title: string
+  description: string
+  user: string
+  createdAt: string
+  updatedAt: string
+  status: string
+  reference: string
+}
