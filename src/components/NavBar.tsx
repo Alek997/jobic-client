@@ -43,7 +43,7 @@ const NavBar: React.FC<any> = () => {
     console.log('checking notifications')
     const data = await fetchNotifications()
     setNotifications(data)
-  }, 5000)
+  }, 5 * 60 * 1000)
 
   return (
     <Flex
