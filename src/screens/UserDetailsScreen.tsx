@@ -1,6 +1,6 @@
 import React from 'react'
 import { Flex, Heading, Text, Box, Center } from '@chakra-ui/layout'
-import { useEmployer } from 'services/userService'
+import { useEmployer, useUserInfo } from 'services/userService'
 import Spinner from 'components/Spinner'
 import { useParams } from 'react-router-dom'
 import JobItem from 'components/JobItem'
@@ -16,6 +16,7 @@ import { routePaths } from 'config/routes'
 
 const UserDetailsScreen: React.FC<any> = () => {
   const { id } = useParams()
+  const localUser = useUserInfo()
   const userInfo = useEmployer(id)
   const reviews = useEmployerReviews(id)
   const jobs = useEmployerJobs(id)
@@ -30,6 +31,10 @@ const UserDetailsScreen: React.FC<any> = () => {
     reviews.status === 'loading'
   )
     return <Spinner />
+
+  const canRate = !reviews.data.find(
+    review => review.createdBy._id === localUser.data?._id
+  )
 
   return (
     <Center display="flex" p={['5', '10']} flexDirection="column">
@@ -103,9 +108,11 @@ const UserDetailsScreen: React.FC<any> = () => {
         justify="space-between"
         my="10"
       >
-        <Button m="0 auto" onClick={modal.onOpen}>
-          Rate user
-        </Button>
+        {canRate && (
+          <Button m="0 auto" onClick={modal.onOpen}>
+            Rate user
+          </Button>
+        )}
         <Heading
           my="2"
           size="lg"
