@@ -5,8 +5,8 @@ const PrivacyPolicyScreen: React.FC<any> = () => {
   return (
     <Center>
       <Flex w="80%" flexDirection="column" textAlign="left">
-        <Heading marginY="10">Privacy Policy</Heading>
-        <Box m="10">
+        <Heading my="10">Privacy Policy</Heading>
+        <Box my="10">
           <Heading>Your Privacy Rights</Heading>
           <Text>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi augue
@@ -24,7 +24,7 @@ const PrivacyPolicyScreen: React.FC<any> = () => {
             blandit orci semper fringilla.
           </Text>
         </Box>
-        <Box m="10">
+        <Box my="10">
           <Heading>Scope of this Privacy Policy</Heading>
           <Text>
             Aliquam erat volutpat. Integer vitae lectus a libero vestibulum
@@ -37,7 +37,7 @@ const PrivacyPolicyScreen: React.FC<any> = () => {
             quis ante. Proin efficitur augue quis feugiat venenatis.
           </Text>
         </Box>
-        <Box m="10">
+        <Box my="10">
           <Heading>Information We Collect</Heading>
           <Text>
             Aliquam erat volutpat. Integer vitae lectus a libero vestibulum
@@ -50,7 +50,7 @@ const PrivacyPolicyScreen: React.FC<any> = () => {
             quis ante. Proin efficitur augue quis feugiat venenatis.
           </Text>
         </Box>
-        <Box m="10">
+        <Box my="10">
           <Heading>Information collected about you from third parties</Heading>
           <Text>
             Aliquam erat volutpat. Integer vitae lectus a libero vestibulum
@@ -63,7 +63,7 @@ const PrivacyPolicyScreen: React.FC<any> = () => {
             quis ante. Proin efficitur augue quis feugiat venenatis.
           </Text>
         </Box>
-        <Box m="10">
+        <Box my="10">
           <Heading>How We Use Information</Heading>
           <Text>
             Aliquam erat volutpat. Integer vitae lectus a libero vestibulum
@@ -76,7 +76,7 @@ const PrivacyPolicyScreen: React.FC<any> = () => {
             quis ante. Proin efficitur augue quis feugiat venenatis.
           </Text>
         </Box>
-        <Box m="10">
+        <Box my="10">
           <Heading>How We Share Information</Heading>
           <Text>
             Aliquam erat volutpat. Integer vitae lectus a libero vestibulum

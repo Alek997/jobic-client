@@ -5,7 +5,7 @@ import JobsFilter from 'components/JobsFilter'
 
 const JobsScreen: React.FC<any> = () => {
   return (
-    <Flex flexDirection="column" alignItems="center" marginY="10">
+    <Flex flexDirection="column" alignItems="center" marginY="10" minH="85vh">
       <JobsFilter />
       <Flex
         w="100%"

@@ -73,31 +73,33 @@ const JobItem: React.FC<JobItemProps> = ({ job, enableModal = true }) => {
           </Box>
           <Stack pt={10} align={'center'}>
             <Flex w={'100%'} justify={'space-between'}>
-              <Text
-                onClick={() =>
-                  history.push(
-                    routePaths.USER_DETAILS.replace(':id', employer.data?._id)
-                  )
-                }
-                color={'gray.500'}
-                fontSize={'sm'}
-                textTransform={'uppercase'}
-              >
-                {`${employer.data?.firstName} ${employer.data?.lastName}`}
-              </Text>
+              <Flex direction="column" textAlign="left">
+                <Text
+                  onClick={() =>
+                    history.push(
+                      routePaths.USER_DETAILS.replace(':id', employer.data?._id)
+                    )
+                  }
+                  color={'gray.500'}
+                  fontSize={'sm'}
+                  textTransform={'uppercase'}
+                >
+                  {`${employer.data?.firstName} ${employer.data?.lastName}`}
+                </Text>
+                <Text color={'gray.500'}>{job.city}</Text>
+              </Flex>
 
               <Badge m="auto 0" borderRadius="full" px="2" colorScheme="teal">
                 {job.status.toUpperCase()}
               </Badge>
             </Flex>
-            <Heading fontSize={'2xl'} fontFamily={'body'} fontWeight={500}>
-              {job.name}
-            </Heading>
             <Flex w="100%" justify="space-between">
               <Text fontWeight={600} fontSize={'xl'}>
                 {`${job.budget} RSD`}
               </Text>
-              <Text color={'gray.600'}>{job.city}</Text>
+              <Heading fontSize={'2xl'} fontFamily={'body'} fontWeight={500}>
+                {job.name}
+              </Heading>
             </Flex>
           </Stack>
         </Box>

@@ -5,8 +5,8 @@ const TermsOfUseScreen: React.FC<any> = () => {
   return (
     <Center>
       <Flex w="80%" flexDirection="column" textAlign="left">
-        <Heading marginY="10">Terms of use</Heading>
-        <Box m="10">
+        <Heading my="10">Terms of use</Heading>
+        <Box my="10">
           <Heading>Understanding your rights and responsibilities</Heading>
           <Text>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi augue
@@ -24,7 +24,7 @@ const TermsOfUseScreen: React.FC<any> = () => {
             blandit orci semper fringilla.
           </Text>
         </Box>
-        <Box m="10">
+        <Box my="10">
           <Heading>Use of Content</Heading>
           <Text>
             Aliquam erat volutpat. Integer vitae lectus a libero vestibulum
@@ -37,7 +37,7 @@ const TermsOfUseScreen: React.FC<any> = () => {
             quis ante. Proin efficitur augue quis feugiat venenatis.
           </Text>
         </Box>
-        <Box m="10">
+        <Box my="10">
           <Heading>Use of Services</Heading>
           <Text>
             Aliquam erat volutpat. Integer vitae lectus a libero vestibulum
@@ -50,7 +50,7 @@ const TermsOfUseScreen: React.FC<any> = () => {
             quis ante. Proin efficitur augue quis feugiat venenatis.
           </Text>
         </Box>
-        <Box m="10">
+        <Box my="10">
           <Heading>All Jobic Users agree to not:</Heading>
           <Text>
             Aliquam erat volutpat. Integer vitae lectus a libero vestibulum
@@ -63,7 +63,7 @@ const TermsOfUseScreen: React.FC<any> = () => {
             quis ante. Proin efficitur augue quis feugiat venenatis.
           </Text>
         </Box>
-        <Box m="10">
+        <Box my="10">
           <Heading>Additional Terms Applicable to Employers</Heading>
           <Text>
             Aliquam erat volutpat. Integer vitae lectus a libero vestibulum
@@ -76,7 +76,7 @@ const TermsOfUseScreen: React.FC<any> = () => {
             quis ante. Proin efficitur augue quis feugiat venenatis.
           </Text>
         </Box>
-        <Box m="10">
+        <Box my="10">
           <Heading>Job ads</Heading>
           <Text>
             Aliquam erat volutpat. Integer vitae lectus a libero vestibulum
