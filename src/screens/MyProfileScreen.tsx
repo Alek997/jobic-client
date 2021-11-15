@@ -1,6 +1,6 @@
 import { Button } from '@chakra-ui/button'
 import { Flex, Heading, Text, Box, Center } from '@chakra-ui/layout'
-import React from 'react'
+import React, { useState } from 'react'
 import { useUserInfo } from 'services/userService'
 import { routePaths } from 'config/routes'
 import { useMyJobs } from 'services/jobService'
@@ -15,11 +15,16 @@ const MyProfileScreen: React.FC<any> = () => {
   const userInfo = useUserInfo()
   const jobs = useMyJobs()
   const history = useHistory()
+  const [onlyActive, setOnlyActive] = useState(false)
 
   if (userInfo.error || jobs.error) return <div>Error</div>
 
   if (userInfo.status === 'loading' || jobs.status === 'loading')
     return <Spinner />
+
+  const filteredJobs = onlyActive
+    ? jobs.data.filter(job => job.status === 'active')
+    : jobs.data
 
   return (
     <Center display="flex" p={['5', '10']} flexDirection="column">
@@ -83,16 +88,29 @@ const MyProfileScreen: React.FC<any> = () => {
         justify="space-between"
         my="10"
       >
-        <Heading
-          size="lg"
+        <Flex
           w="100%"
+          position="relative"
           borderBottom="1px"
           borderColor="gray.300"
           pb="5"
+          alignItems="center"
         >
-          My jobs
-        </Heading>
-        {jobs.data?.map(job => (
+          <Heading size="lg" w="100%">
+            My jobs
+          </Heading>
+          <Button
+            onClick={() => setOnlyActive(!onlyActive)}
+            color="white"
+            size="lg"
+            position="absolute"
+            right="0"
+          >
+            {onlyActive ? 'Show All' : 'Show Active'}
+          </Button>
+        </Flex>
+
+        {filteredJobs?.map(job => (
           <Flex
             basis={{ base: '100%', md: '49%', lg: '32%', xl: '24%' }}
             alignItems={'center'}

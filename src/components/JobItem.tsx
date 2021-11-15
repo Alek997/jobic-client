@@ -89,7 +89,12 @@ const JobItem: React.FC<JobItemProps> = ({ job, enableModal = true }) => {
                 <Text color={'gray.500'}>{job.city}</Text>
               </Flex>
 
-              <Badge m="auto 0" borderRadius="full" px="2" colorScheme="teal">
+              <Badge
+                m="auto 0"
+                borderRadius="full"
+                px="2"
+                colorScheme={job.status === 'active' ? 'teal' : 'gray'}
+              >
                 {job.status.toUpperCase()}
               </Badge>
             </Flex>
