@@ -90,7 +90,6 @@ const HomeScreenSearch = () => {
               <Button
                 isLoading={props.isSubmitting}
                 type="submit"
-                marginLeft={['0px', '10px']}
                 paddingX={'30px'}
                 size="md"
               >

@@ -38,7 +38,7 @@ const JobAppScreen: React.FC<any> = () => {
     }
   }
   return (
-    <Center width="100%" minH="100vh">
+    <Center width="100%" minH="85vh">
       <Formik
         initialValues={{
           message: 'Prijava mi mnogo znaci'
