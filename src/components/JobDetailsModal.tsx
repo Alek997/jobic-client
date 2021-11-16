@@ -84,44 +84,42 @@ const JobDetailsModal: React.FC<any> = ({ job, isOpen, onClose }) => {
   const userInfo = useUserInfo()
   const isOwner = userInfo.data?._id == job.createdBy
   return (
-    <>
-      <Modal isOpen={isOpen} onClose={onClose} size={'4xl'}>
-        <ModalOverlay />
-        <ModalContent>
-          <ModalCloseButton />
-          <ModalBody>
-            <JobDetails job={job} />
-          </ModalBody>
-          <ModalFooter>
-            {isOwner ? (
-              <Button
-                colorScheme="teal"
-                mr={3}
-                onClick={() =>
-                  history.push(routePaths.EDIT_JOB.replace(':id', job._id))
-                }
-              >
-                Edit
-              </Button>
-            ) : (
-              <Button
-                colorScheme="teal"
-                mr={3}
-                onClick={() =>
-                  history.push(routePaths.APPLY_JOB.replace(':id', job._id))
-                }
-              >
-                Apply
-              </Button>
-            )}
-
-            <Button variant="ghost" onClick={onClose}>
-              Close
+    <Modal isOpen={isOpen} onClose={onClose} size={'4xl'}>
+      <ModalOverlay />
+      <ModalContent>
+        <ModalCloseButton />
+        <ModalBody>
+          <JobDetails job={job} />
+        </ModalBody>
+        <ModalFooter>
+          {isOwner ? (
+            <Button
+              colorScheme="teal"
+              mr={3}
+              onClick={() =>
+                history.push(routePaths.EDIT_JOB.replace(':id', job._id))
+              }
+            >
+              Edit
             </Button>
-          </ModalFooter>
-        </ModalContent>
-      </Modal>
-    </>
+          ) : (
+            <Button
+              colorScheme="teal"
+              mr={3}
+              onClick={() =>
+                history.push(routePaths.APPLY_JOB.replace(':id', job._id))
+              }
+            >
+              Apply
+            </Button>
+          )}
+
+          <Button variant="ghost" onClick={onClose}>
+            Close
+          </Button>
+        </ModalFooter>
+      </ModalContent>
+    </Modal>
   )
 }
 

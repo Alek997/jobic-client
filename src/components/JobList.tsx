@@ -15,16 +15,12 @@ const JobList: React.FC = () => {
 
   return (
     <Flex direction="column" alignItems="center" width="100%">
-      <Flex
-        alignItems="center"
-        width="100%"
-        wrap="wrap"
-        justify="space-between"
-      >
+      <Flex alignItems="center" width="100%" wrap="wrap">
         {query.data?.pages.map(page =>
           page.content.map(job => (
             <Flex
               basis={{ base: '100%', md: '49%', lg: '32%', xl: '24%' }}
+              marginX={{ base: '0', md: '0.5%', lg: '0.66%', xl: '0.5%' }}
               alignItems={'center'}
               justify="center"
               key={job._id}

@@ -35,7 +35,7 @@ const MyProfileScreen: React.FC<any> = () => {
         w="100%"
       >
         <Box
-          flexBasis={['100%', '65%']}
+          flexBasis={'100%'}
           textAlign="left"
           borderWidth="1px"
           borderColor="gray.300"
@@ -60,27 +60,6 @@ const MyProfileScreen: React.FC<any> = () => {
           <Text>{userInfo.data?.phone}</Text>
           <Text>{userInfo.data?.summary}</Text>
         </Box>
-        <Box
-          flexBasis={['100%', '30%']}
-          textAlign="left"
-          borderWidth="1px"
-          borderColor="gray.300"
-          borderRadius="lg"
-          p="10"
-          mt="10"
-        >
-          <Center flexDirection="column" h="100%">
-            <Heading size="sm">Create new job</Heading>
-            <Button
-              onClick={() => history.push(routePaths.CREATE_JOB)}
-              alignSelf="left"
-              color="white"
-              size="sm"
-            >
-              <Icon as={FaPlus} />
-            </Button>
-          </Center>
-        </Box>
       </Flex>
       <Flex
         alignItems="center"
@@ -91,7 +70,6 @@ const MyProfileScreen: React.FC<any> = () => {
       >
         <Flex
           w="100%"
-          position="relative"
           borderBottom="1px"
           borderColor="gray.300"
           pb="5"
@@ -100,27 +78,32 @@ const MyProfileScreen: React.FC<any> = () => {
           <Heading size="lg" w="100%">
             My jobs
           </Heading>
+        </Flex>
+
+        <Flex direction="column" w="100%">
           <Button
             onClick={() => setOnlyActive(!onlyActive)}
             color="white"
             size="lg"
-            position="absolute"
-            right="0"
+            m="0 auto"
+            mt="5"
           >
             {onlyActive ? 'Show All' : 'Show Active'}
           </Button>
-        </Flex>
-
-        {filteredJobs?.map(job => (
-          <Flex
-            basis={{ base: '100%', md: '49%', lg: '32%', xl: '24%' }}
-            alignItems={'center'}
-            justify="center"
-            key={job._id}
-          >
-            <MyJobItem {...job} />
+          <Flex alignItems="center" w="100%" wrap="wrap">
+            {filteredJobs?.map(job => (
+              <Flex
+                basis={{ base: '100%', md: '49%', lg: '32%', xl: '24%' }}
+                alignItems="center"
+                justify="center"
+                key={job._id}
+                marginX={{ base: '0', md: '0.5%', lg: '0.66%', xl: '0.5%' }}
+              >
+                <MyJobItem {...job} />
+              </Flex>
+            ))}
           </Flex>
-        ))}
+        </Flex>
       </Flex>
     </Center>
   )

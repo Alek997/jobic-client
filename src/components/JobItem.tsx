@@ -6,6 +6,8 @@ import {
   Center,
   Flex,
   Heading,
+  Link,
+  LinkOverlay,
   Stack,
   Text
 } from '@chakra-ui/layout'
@@ -74,7 +76,7 @@ const JobItem: React.FC<JobItemProps> = ({ job, enableModal = true }) => {
           <Stack pt={10} align={'center'}>
             <Flex w={'100%'} justify={'space-between'}>
               <Flex direction="column" textAlign="left">
-                <Text
+                <Link
                   onClick={() =>
                     history.push(
                       routePaths.USER_DETAILS.replace(':id', employer.data?._id)
@@ -85,7 +87,7 @@ const JobItem: React.FC<JobItemProps> = ({ job, enableModal = true }) => {
                   textTransform={'uppercase'}
                 >
                   {`${employer.data?.firstName} ${employer.data?.lastName}`}
-                </Text>
+                </Link>
                 <Text color={'gray.500'}>{job.city}</Text>
               </Flex>
 

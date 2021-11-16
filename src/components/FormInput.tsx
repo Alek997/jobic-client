@@ -6,7 +6,7 @@ import {
 } from '@chakra-ui/form-control'
 import { Input } from '@chakra-ui/input'
 import { Field } from 'formik'
-import { Select, Textarea } from '@chakra-ui/react'
+import { Select, Textarea, TextareaProps } from '@chakra-ui/react'
 import ImageUpload from './ImageUpload'
 import Rating from 'react-rating'
 
@@ -95,9 +95,10 @@ export const PasswordInput: React.FC<TextInputProps> = ({
   )
 }
 
-export const TextAreaInput: React.FC<TextInputProps> = ({
+export const TextAreaInput: React.FC<TextInputProps & TextareaProps> = ({
   fieldName = 'name',
-  placeholder = 'Name'
+  placeholder = 'Name',
+  ...props
 }) => {
   return (
     <Field name={fieldName}>
@@ -106,7 +107,13 @@ export const TextAreaInput: React.FC<TextInputProps> = ({
           isInvalid={form.errors[fieldName] && form.touched[fieldName]}
         >
           <FormLabel htmlFor={fieldName}>{placeholder}</FormLabel>
-          <Textarea {...field} id={fieldName} placeholder={placeholder} />
+          <Textarea
+            {...field}
+            id={fieldName}
+            placeholder={placeholder}
+            size={props.size}
+            minH={props.minH}
+          />
           <FormErrorMessage>{form.errors[fieldName]}</FormErrorMessage>
         </FormControl>
       )}

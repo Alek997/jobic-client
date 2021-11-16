@@ -79,7 +79,7 @@ const UserDetailsScreen: React.FC<any> = () => {
         alignItems="center"
         w="100%"
         wrap="wrap"
-        justify="space-between"
+        // justify="space-between"
         my="10"
       >
         <Heading
@@ -94,6 +94,7 @@ const UserDetailsScreen: React.FC<any> = () => {
         {jobs.data?.map(job => (
           <Flex
             basis={{ base: '100%', md: '49%', lg: '32%', xl: '24%' }}
+            marginX={{ base: '0', md: '0.5%', lg: '0.66%', xl: '0.5%' }}
             alignItems={'center'}
             justify="center"
             key={job._id}

@@ -52,7 +52,7 @@ const RateUserModal: React.FC<Props> = ({ employer, isOpen, onClose }) => {
   }
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} size="full">
+    <Modal isOpen={isOpen} onClose={onClose} size="lg">
       <ModalOverlay />
       <ModalContent>
         <ModalHeader>Rate user</ModalHeader>
