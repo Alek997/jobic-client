@@ -11,13 +11,26 @@ import {
   ModalHeader,
   ModalOverlay
 } from '@chakra-ui/modal'
-import { acceptJobApp, denyJobApp, useJobApps } from 'services/jobAppService'
+import {
+  acceptJobApp,
+  acceptOnlyJobApp,
+  denyJobApp,
+  useJobApps
+} from 'services/jobAppService'
 import { queryClient } from 'config/query'
 import Spinner from './Spinner'
 import { useToast } from '@chakra-ui/toast'
 import { useColorModeValue } from '@chakra-ui/color-mode'
 import AvatarImage from './AvatarImage'
-
+import {
+  Popover,
+  PopoverTrigger,
+  PopoverContent,
+  PopoverHeader,
+  PopoverBody,
+  PopoverArrow,
+  PopoverCloseButton
+} from '@chakra-ui/react'
 const applicationStatus = {
   employed: {
     message: 'employed',
@@ -44,6 +57,26 @@ const JobAppsDetails: React.FC<Props> = ({ job }) => {
   if (jobApps.error) return <div>Error</div>
   if (jobApps.status === 'loading') return <Spinner />
 
+  const acceptOnlyOffer = async jobApp => {
+    try {
+      await acceptOnlyJobApp(jobApp).then(() => {
+        queryClient.invalidateQueries(['jobApps', jobApp.jobId])
+        toast({
+          title: 'Successful',
+          status: 'success',
+          duration: 2000,
+          isClosable: true
+        })
+      })
+    } catch {
+      toast({
+        title: 'Error',
+        status: 'error',
+        duration: 2000,
+        isClosable: true
+      })
+    }
+  }
   const acceptOffer = async jobApp => {
     try {
       await acceptJobApp(jobApp).then(() => {
@@ -68,6 +101,7 @@ const JobAppsDetails: React.FC<Props> = ({ job }) => {
     try {
       await denyJobApp(jobApp).then(() => {
         queryClient.invalidateQueries(['jobApps', jobApp.jobId])
+
         toast({
           title: 'Successful',
           status: 'success',
@@ -121,9 +155,40 @@ const JobAppsDetails: React.FC<Props> = ({ job }) => {
                 </Flex>
               </Flex>
               <Flex direction="column">
-                <Button size="md" onClick={() => acceptOffer(jobApp)} mb="2">
-                  Accept
-                </Button>
+                <Popover>
+                  <PopoverTrigger>
+                    <Button
+                      size="md"
+                      // onClick={() => acceptOffer(jobApp)}
+                      mb="2"
+                    >
+                      Accept
+                    </Button>
+                  </PopoverTrigger>
+                  <PopoverContent>
+                    <PopoverArrow />
+                    <PopoverCloseButton />
+                    <PopoverHeader>Continue hiring?</PopoverHeader>
+                    <PopoverBody>
+                      <Button
+                        size="md"
+                        onClick={() => acceptOnlyOffer(jobApp)}
+                        mb="2"
+                        mr="2"
+                      >
+                        No
+                      </Button>
+                      <Button
+                        size="md"
+                        onClick={() => acceptOffer(jobApp)}
+                        mb="2"
+                      >
+                        Yes
+                      </Button>
+                    </PopoverBody>
+                  </PopoverContent>
+                </Popover>
+
                 <Button
                   size="md"
                   colorScheme="red"

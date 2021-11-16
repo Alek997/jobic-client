@@ -31,6 +31,15 @@ export const acceptJobApp = jobApp =>
     })
     .then(({ data }) => data.data)
 
+export const acceptOnlyJobApp = jobApp =>
+  http
+    .put<{ data: JobAppDto }>(`${API_URL}/jobApp/${jobApp._id}`, {
+      ...jobApp,
+      status: 'employed',
+      only: true
+    })
+    .then(({ data }) => data.data)
+
 export const denyJobApp = jobApp =>
   http
     .put<{ data: JobAppDto }>(`${API_URL}/jobApp/${jobApp._id}`, {

@@ -5,9 +5,10 @@ export interface UserInfoDto {
   firstName: string
   lastName: string
   phone: string
-  imageUrl?: string
   updatedAt: string
+  imageUrl?: string
   avgRating?: number
+  summary?: string
 }
 
 export interface JobDto {

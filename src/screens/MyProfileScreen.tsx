@@ -58,6 +58,7 @@ const MyProfileScreen: React.FC<any> = () => {
           <Text>{userInfo.data?.lastName}</Text>
           <Text>{userInfo.data?.email}</Text>
           <Text>{userInfo.data?.phone}</Text>
+          <Text>{userInfo.data?.summary}</Text>
         </Box>
         <Box
           flexBasis={['100%', '30%']}

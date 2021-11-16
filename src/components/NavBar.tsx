@@ -40,7 +40,6 @@ const NavBar: React.FC<any> = () => {
   }, [notifications])
 
   useInterval(async () => {
-    console.log('checking notifications')
     const data = await fetchNotifications()
     setNotifications(data)
   }, 5 * 60 * 1000)
