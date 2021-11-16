@@ -7,7 +7,6 @@ import {
   Flex,
   Heading,
   Link,
-  LinkOverlay,
   Stack,
   Text
 } from '@chakra-ui/layout'
