@@ -48,7 +48,7 @@ const JobsFilter = () => {
               align="center"
             >
               <Flex mt="3" w="100%" flexDirection="row">
-                <TextInput fieldName="name" placeholder="Search" />
+                <TextInput fieldName="name" placeholder="Search" hideLabel />
                 <Button
                   alignSelf="end"
                   ml={'2'}

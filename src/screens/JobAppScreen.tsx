@@ -49,7 +49,7 @@ const JobAppScreen: React.FC<any> = () => {
       <Flex mY={['0', '10']}>
         <Formik
           initialValues={{
-            message: 'Prijava mi mnogo znaci'
+            message: ''
           }}
           onSubmit={onSubmit}
         >
@@ -59,6 +59,7 @@ const JobAppScreen: React.FC<any> = () => {
 
               <Box mt="3" marginX="2">
                 <TextAreaInput
+                  hideLabel
                   fieldName="message"
                   placeholder="Message"
                   size="lg"

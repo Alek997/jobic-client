@@ -13,10 +13,12 @@ import Rating from 'react-rating'
 interface TextInputProps {
   fieldName: string
   placeholder: string
+  hideLabel?: boolean
 }
 export const TextInput: React.FC<TextInputProps> = ({
   fieldName = 'name',
-  placeholder = 'Name'
+  placeholder = 'Name',
+  hideLabel = false
 }) => {
   return (
     <Field name={fieldName}>
@@ -24,7 +26,9 @@ export const TextInput: React.FC<TextInputProps> = ({
         <FormControl
           isInvalid={form.errors[fieldName] && form.touched[fieldName]}
         >
-          <FormLabel htmlFor={fieldName}>{placeholder}</FormLabel>
+          {!hideLabel && (
+            <FormLabel htmlFor={fieldName}>{placeholder}</FormLabel>
+          )}
           <Input {...field} id={fieldName} placeholder={placeholder} />
           <FormErrorMessage>{form.errors[fieldName]}</FormErrorMessage>
         </FormControl>
@@ -98,6 +102,7 @@ export const PasswordInput: React.FC<TextInputProps> = ({
 export const TextAreaInput: React.FC<TextInputProps & TextareaProps> = ({
   fieldName = 'name',
   placeholder = 'Name',
+  hideLabel = false,
   ...props
 }) => {
   return (
@@ -106,7 +111,9 @@ export const TextAreaInput: React.FC<TextInputProps & TextareaProps> = ({
         <FormControl
           isInvalid={form.errors[fieldName] && form.touched[fieldName]}
         >
-          <FormLabel htmlFor={fieldName}>{placeholder}</FormLabel>
+          {!hideLabel && (
+            <FormLabel htmlFor={fieldName}>{placeholder}</FormLabel>
+          )}
           <Textarea
             {...field}
             id={fieldName}

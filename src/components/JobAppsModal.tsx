@@ -1,5 +1,5 @@
 import React from 'react'
-import { Center, Flex, Heading, Text } from '@chakra-ui/layout'
+import { Center, Flex, Heading, Link, Text } from '@chakra-ui/layout'
 import { JobDto } from 'types/dto'
 import { Button } from '@chakra-ui/button'
 import {
@@ -31,6 +31,9 @@ import {
   PopoverArrow,
   PopoverCloseButton
 } from '@chakra-ui/react'
+import { useHistory } from 'react-router'
+import { routePaths } from 'config/routes'
+
 const applicationStatus = {
   employed: {
     message: 'employed',
@@ -53,6 +56,7 @@ interface Props {
 const JobAppsDetails: React.FC<Props> = ({ job }) => {
   const toast = useToast()
   const jobApps = useJobApps(job._id)
+  const history = useHistory()
 
   if (jobApps.error) return <div>Error</div>
   if (jobApps.status === 'loading') return <Spinner />
@@ -141,17 +145,29 @@ const JobAppsDetails: React.FC<Props> = ({ job }) => {
             alignSelf="center"
             direction="column"
             p="2"
+            my="2"
           >
             <Flex justify="space-between" alignItems="center">
               <Flex alignItems="center" direction={['column', 'row']}>
-                <AvatarImage
-                  src={
-                    jobApp?.createdBy.imageUrl
-                      ? jobApp?.createdBy.imageUrl
-                      : `https://eu.ui-avatars.com/api/?name=${jobApp?.createdBy.firstName}+${jobApp?.createdBy.lastName}`
+                <Link
+                  onClick={() =>
+                    history.push(
+                      routePaths.USER_DETAILS.replace(
+                        ':id',
+                        jobApp.createdBy._id
+                      )
+                    )
                   }
-                  mb={[2, 0]}
-                />
+                >
+                  <AvatarImage
+                    src={
+                      jobApp?.createdBy.imageUrl
+                        ? jobApp?.createdBy.imageUrl
+                        : `https://eu.ui-avatars.com/api/?name=${jobApp?.createdBy.firstName}+${jobApp?.createdBy.lastName}`
+                    }
+                    mb={[2, 0]}
+                  />
+                </Link>
 
                 <Flex
                   borderRadius="full"
@@ -167,11 +183,7 @@ const JobAppsDetails: React.FC<Props> = ({ job }) => {
               <Flex direction="column">
                 <Popover>
                   <PopoverTrigger>
-                    <Button
-                      size="md"
-                      // onClick={() => acceptOffer(jobApp)}
-                      mb="2"
-                    >
+                    <Button size="md" mb="2">
                       Accept
                     </Button>
                   </PopoverTrigger>
@@ -208,7 +220,15 @@ const JobAppsDetails: React.FC<Props> = ({ job }) => {
                 </Button>
               </Flex>
             </Flex>
-            <Text mt="2">{`${jobApp?.createdBy.firstName} ${jobApp?.createdBy.lastName}`}</Text>
+            <Link
+              onClick={() =>
+                history.push(
+                  routePaths.USER_DETAILS.replace(':id', jobApp.createdBy._id)
+                )
+              }
+            >
+              <Text mt="2">{`${jobApp?.createdBy.firstName} ${jobApp?.createdBy.lastName}`}</Text>
+            </Link>
             <Text mt="2">{jobApp?.message}</Text>
           </Flex>
         )

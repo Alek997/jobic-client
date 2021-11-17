@@ -17,8 +17,8 @@ import { NewReview, UserInfoDto } from 'types/dto'
 import { createReview } from 'services/reviewService'
 
 const defaultReview: NewReview = {
-  description: 'Neki opis okej',
-  rating: 5,
+  description: '',
+  rating: 4,
   ratedUser: '',
   createdBy: ''
 }
