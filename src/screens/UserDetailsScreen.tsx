@@ -32,9 +32,9 @@ const UserDetailsScreen: React.FC<any> = () => {
   )
     return <Spinner />
 
-  const canRate = !reviews.data.find(
-    review => review.createdBy._id === localUser.data?._id
-  )
+  const canRate =
+    userInfo.data._id != localUser.data._id &&
+    !reviews.data.find(review => review.createdBy._id === localUser.data?._id)
 
   return (
     <Center display="flex" p={['5', '10']} flexDirection="column">

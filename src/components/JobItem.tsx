@@ -30,7 +30,7 @@ const JobItem: React.FC<JobItemProps> = ({ job, enableModal = true }) => {
 
   return (
     <>
-      <Center py={12} alignSelf="center" onClick={modal.onOpen}>
+      <Center py={12} minH="100%" alignSelf="center" onClick={modal.onOpen}>
         <Box
           role={'group'}
           p={6}
@@ -99,11 +99,17 @@ const JobItem: React.FC<JobItemProps> = ({ job, enableModal = true }) => {
                 {job.status.toUpperCase()}
               </Badge>
             </Flex>
-            <Flex w="100%" justify="space-between">
-              <Text fontWeight={600} fontSize={'xl'}>
+            <Flex w="100%" justify="space-between" align="center">
+              <Text fontWeight={600} fontSize={'xl'} noOfLines={1}>
                 {`${job.budget} RSD`}
               </Text>
-              <Heading fontSize={'2xl'} fontFamily={'body'} fontWeight={500}>
+              <Heading
+                fontSize={'xl'}
+                fontFamily={'body'}
+                fontWeight={600}
+                maxWidth={'32'}
+                isTruncated
+              >
                 {job.name}
               </Heading>
             </Flex>

@@ -39,8 +39,8 @@ const LoginScreen: React.FC<any> = () => {
       <Flex justifyContent="center">
         <Formik
           initialValues={{
-            email: 'alek@gmail.com',
-            password: '12345678'
+            email: '',
+            password: ''
           }}
           onSubmit={onSubmit}
         >

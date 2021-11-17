@@ -40,11 +40,11 @@ const RegisterScreen: React.FC<any> = () => {
       <Flex justifyContent="center">
         <Formik
           initialValues={{
-            firstName: 'Alek',
-            lastName: 'Temimovic',
-            email: 'alek@gmail.com',
-            phone: '1231231',
-            password: '12345678'
+            firstName: '',
+            lastName: '',
+            email: '',
+            phone: '',
+            password: ''
           }}
           onSubmit={onSubmit}
         >
