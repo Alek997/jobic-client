@@ -1,5 +1,5 @@
 import React from 'react'
-import { Flex, Text } from '@chakra-ui/layout'
+import { Center, Flex, Heading, Text } from '@chakra-ui/layout'
 import { JobDto } from 'types/dto'
 import { Button } from '@chakra-ui/button'
 import {
@@ -117,6 +117,16 @@ const JobAppsDetails: React.FC<Props> = ({ job }) => {
         isClosable: true
       })
     }
+  }
+
+  if (jobApps.data?.length === 0) {
+    return (
+      <Center w="100%" my="20">
+        <Heading size="xl" color="gray.200">
+          No applications yet
+        </Heading>
+      </Center>
+    )
   }
 
   return (

@@ -14,11 +14,10 @@ import {
 } from 'components/FormInput'
 
 const defaultJob = {
-  name: 'Posao',
-  city: 'Beograd',
-  address: 'Neka ulica 1',
-  imageUrl: 'https://via.placeholder.com/1920x1080/eee?text=16:9',
-  description: 'Neki opis okej',
+  name: '',
+  city: '',
+  address: '',
+  description: '',
   categoryId: null,
   budget: '200'
 }
