@@ -13,6 +13,8 @@ import { useDisclosure } from '@chakra-ui/hooks'
 import RateUserModal from 'components/RateUserModal'
 import { useHistory } from 'react-router'
 import { routePaths } from 'config/routes'
+import Icon from '@chakra-ui/icon'
+import { FaStar } from 'react-icons/fa'
 
 const UserDetailsScreen: React.FC<any> = () => {
   const { id } = useParams()
@@ -75,13 +77,7 @@ const UserDetailsScreen: React.FC<any> = () => {
           )}
         </Box>
       </Flex>
-      <Flex
-        alignItems="center"
-        w="100%"
-        wrap="wrap"
-        // justify="space-between"
-        my="10"
-      >
+      <Flex alignItems="center" w="100%" wrap="wrap" my="10">
         <Heading
           size="lg"
           w="100%"
@@ -129,22 +125,45 @@ const UserDetailsScreen: React.FC<any> = () => {
         <RateUserModal employer={userInfo.data} {...modal} />
         {reviews.data?.map(review => {
           return (
-            <Flex key={review._id} w="100%" justifyContent="space-between">
-              <AvatarImage
-                onClick={() =>
-                  history.push(
-                    routePaths.USER_DETAILS.replace(':id', review.createdBy._id)
-                  )
-                }
-                src={
-                  review.createdBy.imageUrl
-                    ? review.createdBy.imageUrl
-                    : `https://eu.ui-avatars.com/api/?name=${review.createdBy.firstName}+${review.createdBy.lastName}`
-                }
-              />
-              <Text>{review.description}</Text>
-              <Text>{`${review.rating}/5`}</Text>
-              <Text>{dayjs(review.createdAt).format('DD.MM.YYYY')}</Text>
+            <Flex
+              key={review._id}
+              w="100%"
+              justifyContent="space-between"
+              mt="5"
+              pb="3"
+              borderBottom="1px"
+              borderColor="gray.200"
+            >
+              <Flex direction="column">
+                <AvatarImage
+                  onClick={() =>
+                    history.push(
+                      routePaths.USER_DETAILS.replace(
+                        ':id',
+                        review.createdBy._id
+                      )
+                    )
+                  }
+                  src={
+                    review.createdBy.imageUrl
+                      ? review.createdBy.imageUrl
+                      : `https://eu.ui-avatars.com/api/?name=${review.createdBy.firstName}+${review.createdBy.lastName}`
+                  }
+                />
+                <Text align="left" mt="2">
+                  {review.description}
+                </Text>
+              </Flex>
+              <Flex direction="column" justify="space-between">
+                <Flex direction="row" align="center" alignSelf="center">
+                  <Text mr="1" align="center">
+                    {review.rating}
+                  </Text>
+                  <Icon as={FaStar} />
+                </Flex>
+
+                <Text>{dayjs(review.createdAt).format('DD.MM.YYYY')}</Text>
+              </Flex>
             </Flex>
           )
         })}
