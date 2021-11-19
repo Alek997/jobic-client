@@ -6,17 +6,17 @@ import {
   Center,
   Flex,
   Heading,
-  Link,
+  // Link,
   Stack,
   Text
 } from '@chakra-ui/layout'
 import React from 'react'
-import { useEmployer } from 'services/userService'
+// import { useEmployer } from 'services/userService'
 import { JobDto } from 'types/dto'
 import { useDisclosure } from '@chakra-ui/hooks'
 import JobDetailsModal from './JobDetailsModal'
-import { useHistory } from 'react-router'
-import { routePaths } from 'config/routes'
+// import { useHistory } from 'react-router'
+// import { routePaths } from 'config/routes'
 
 interface JobItemProps {
   job: JobDto
@@ -24,9 +24,9 @@ interface JobItemProps {
 }
 
 const JobItem: React.FC<JobItemProps> = ({ job, enableModal = true }) => {
-  const employer = useEmployer(job.createdBy)
+  // const employer = useEmployer(job.createdBy)
   const modal = useDisclosure()
-  const history = useHistory()
+  // const history = useHistory()
 
   return (
     <>
@@ -75,7 +75,7 @@ const JobItem: React.FC<JobItemProps> = ({ job, enableModal = true }) => {
           <Stack pt={10} align={'center'}>
             <Flex w={'100%'} justify={'space-between'}>
               <Flex direction="column" textAlign="left">
-                <Link
+                {/* <Link
                   onClick={() =>
                     history.push(
                       routePaths.USER_DETAILS.replace(':id', employer.data?._id)
@@ -86,7 +86,7 @@ const JobItem: React.FC<JobItemProps> = ({ job, enableModal = true }) => {
                   textTransform={'uppercase'}
                 >
                   {`${employer.data?.firstName} ${employer.data?.lastName}`}
-                </Link>
+                </Link> */}
                 <Text color={'gray.500'}>{job.city}</Text>
               </Flex>
 
