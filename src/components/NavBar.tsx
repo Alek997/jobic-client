@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Button } from '@chakra-ui/button'
 import { routePaths } from 'config/routes'
 import { NavLink } from 'react-router-dom'
-import { Center, Flex, Heading, Text } from '@chakra-ui/layout'
+import { Center, Flex, Heading, Link, Text } from '@chakra-ui/layout'
 import { logout } from 'services/auth'
 import { Icon, Image, useMediaQuery } from '@chakra-ui/react'
 import { FaSignOutAlt, FaPlus, FaBell } from 'react-icons/fa'
@@ -71,12 +71,9 @@ const NavBar: React.FC<any> = () => {
               <Icon as={FaPlus} />
             )}
           </Button>
-          <AvatarImage
-            mr="3"
-            h="40px"
-            w="40px"
-            onClick={() => history.push(routePaths.MY_PROFILE)}
-          />
+          <Link onClick={() => history.push(routePaths.MY_PROFILE)}>
+            <AvatarImage mr="3" h="40px" w="40px" />
+          </Link>
           <Menu>
             <MenuButton mr="3" as={Button} position="relative">
               <Icon as={FaBell} />
