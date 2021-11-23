@@ -14,6 +14,7 @@ import {
   ModalOverlay
 } from '@chakra-ui/modal'
 import { useHistory } from 'react-router'
+import { Link } from '@chakra-ui/react'
 
 interface Props {
   job: JobDto
@@ -21,6 +22,7 @@ interface Props {
 
 const JobDetails: React.FC<Props> = ({ job }) => {
   const employer = useEmployer(job.createdBy)
+  const history = useHistory()
 
   return (
     <Flex alignSelf="center" flexDirection="column">
@@ -39,11 +41,19 @@ const JobDetails: React.FC<Props> = ({ job }) => {
             <Heading size="lg" lineHeight="10">
               {job.name}
             </Heading>
-            <Heading
-              color="gray.600"
-              size="md"
-              lineHeight="10"
-            >{`${employer.data?.firstName} - ${employer.data?.lastName}`}</Heading>
+            <Link
+              onClick={() =>
+                history.push(
+                  routePaths.USER_DETAILS.replace(':id', employer.data?._id)
+                )
+              }
+            >
+              <Heading
+                color="gray.600"
+                size="md"
+                lineHeight="10"
+              >{`${employer.data?.firstName} - ${employer.data?.lastName}`}</Heading>
+            </Link>
             <Heading
               color="gray.400"
               size="md"

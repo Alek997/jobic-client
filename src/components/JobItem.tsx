@@ -15,8 +15,6 @@ import React from 'react'
 import { JobDto } from 'types/dto'
 import { useDisclosure } from '@chakra-ui/hooks'
 import JobDetailsModal from './JobDetailsModal'
-// import { useHistory } from 'react-router'
-// import { routePaths } from 'config/routes'
 
 interface JobItemProps {
   job: JobDto
@@ -24,9 +22,7 @@ interface JobItemProps {
 }
 
 const JobItem: React.FC<JobItemProps> = ({ job, enableModal = true }) => {
-  // const employer = useEmployer(job.createdBy)
   const modal = useDisclosure()
-  // const history = useHistory()
 
   return (
     <>
@@ -43,7 +39,7 @@ const JobItem: React.FC<JobItemProps> = ({ job, enableModal = true }) => {
         >
           <Box
             rounded={'lg'}
-            mt={-12}
+            mt={-10}
             pos={'relative'}
             height={'230px'}
             _after={{
@@ -52,15 +48,16 @@ const JobItem: React.FC<JobItemProps> = ({ job, enableModal = true }) => {
               w: 'full',
               h: 'full',
               pos: 'absolute',
-              top: 5,
+              top: 3,
               left: 0,
+              right: 0,
               backgroundImage: `url(${job.imageUrl})`,
-              filter: 'blur(15px)',
+              filter: 'blur(30px)',
               zIndex: -1
             }}
             _groupHover={{
               _after: {
-                filter: 'blur(20px)'
+                filter: 'blur(35px)'
               }
             }}
           >

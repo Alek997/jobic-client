@@ -8,6 +8,7 @@ import MyJobItem from '../components/MyJobItem'
 import { useHistory } from 'react-router'
 import Spinner from 'components/Spinner'
 import AvatarImage from 'components/AvatarImage'
+import EmptyList from 'components/EmptyList'
 
 const MyProfileScreen: React.FC<any> = () => {
   const userInfo = useUserInfo()
@@ -77,31 +78,34 @@ const MyProfileScreen: React.FC<any> = () => {
             My jobs
           </Heading>
         </Flex>
-
-        <Flex direction="column" w="100%">
-          <Button
-            onClick={() => setOnlyActive(!onlyActive)}
-            color="white"
-            size="lg"
-            m="0 auto"
-            mt="5"
-          >
-            {onlyActive ? 'Show All' : 'Show Active'}
-          </Button>
-          <Flex alignItems="center" w="100%" wrap="wrap">
-            {filteredJobs?.map(job => (
-              <Flex
-                basis={{ base: '100%', md: '49%', lg: '32%', xl: '24%' }}
-                alignItems="center"
-                justify="center"
-                key={job._id}
-                marginX={{ base: '0', md: '0.5%', lg: '0.66%', xl: '0.5%' }}
-              >
-                <MyJobItem {...job} />
-              </Flex>
-            ))}
+        {filteredJobs?.length > 0 ? (
+          <Flex direction="column" w="100%">
+            <Button
+              onClick={() => setOnlyActive(!onlyActive)}
+              color="white"
+              size="lg"
+              m="0 auto"
+              mt="5"
+            >
+              {onlyActive ? 'Show All' : 'Show Active'}
+            </Button>
+            <Flex alignItems="center" w="100%" wrap="wrap">
+              {filteredJobs?.map(job => (
+                <Flex
+                  basis={{ base: '100%', md: '49%', lg: '32%', xl: '24%' }}
+                  alignItems="center"
+                  justify="center"
+                  key={job._id}
+                  marginX={{ base: '0', md: '0.5%', lg: '0.66%', xl: '0.5%' }}
+                >
+                  <MyJobItem {...job} />
+                </Flex>
+              ))}
+            </Flex>
           </Flex>
-        </Flex>
+        ) : (
+          <EmptyList />
+        )}
       </Flex>
     </Center>
   )

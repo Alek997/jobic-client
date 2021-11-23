@@ -1,9 +1,10 @@
 import React from 'react'
-import { Center, Flex, Heading, Link } from '@chakra-ui/layout'
+import { Flex, Link } from '@chakra-ui/layout'
 import JobItem from './JobItem'
 import { useInfiniteJobsQuery } from 'services/jobService'
 import useSearchParams from 'shared/useSearchParams'
 import Spinner from './Spinner'
+import EmptyList from './EmptyList'
 
 const JobList: React.FC = () => {
   const params = useSearchParams()
@@ -14,13 +15,7 @@ const JobList: React.FC = () => {
   if (query.status === 'loading') return <Spinner />
 
   if (query.data.pages[0].content.length === 0) {
-    return (
-      <Center w="100%" my="20">
-        <Heading size="xl" color="gray.200">
-          Sorry, list is empty
-        </Heading>
-      </Center>
-    )
+    return <EmptyList />
   }
 
   return (

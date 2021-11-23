@@ -19,8 +19,7 @@ import { createReview } from 'services/reviewService'
 const defaultReview: NewReview = {
   description: '',
   rating: 4,
-  ratedUser: '',
-  createdBy: ''
+  ratedUser: ''
 }
 
 interface Props {

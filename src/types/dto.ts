@@ -54,7 +54,6 @@ export interface NewReview {
   description: string
   rating: number
   ratedUser: string
-  createdBy: string
 }
 
 export interface NotificationDto {

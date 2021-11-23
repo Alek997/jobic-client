@@ -3,7 +3,7 @@ import { Spinner as BaseSpinner, Center } from '@chakra-ui/react'
 
 const Spinner = () => {
   return (
-    <Center>
+    <Center w="100%">
       <BaseSpinner
         thickness="4px"
         speed="0.65s"

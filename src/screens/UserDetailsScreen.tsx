@@ -15,6 +15,7 @@ import { useHistory } from 'react-router'
 import { routePaths } from 'config/routes'
 import Icon from '@chakra-ui/icon'
 import { FaStar } from 'react-icons/fa'
+import EmptyList from 'components/EmptyList'
 
 const UserDetailsScreen: React.FC<any> = () => {
   const { id } = useParams()
@@ -87,17 +88,21 @@ const UserDetailsScreen: React.FC<any> = () => {
         >
           User jobs
         </Heading>
-        {jobs.data?.map(job => (
-          <Flex
-            basis={{ base: '100%', md: '49%', lg: '32%', xl: '24%' }}
-            marginX={{ base: '0', md: '0.5%', lg: '0.66%', xl: '0.5%' }}
-            alignItems={'center'}
-            justify="center"
-            key={job._id}
-          >
-            <JobItem job={job} />
-          </Flex>
-        ))}
+        {jobs.data?.length > 0 ? (
+          jobs.data?.map(job => (
+            <Flex
+              basis={{ base: '100%', md: '49%', lg: '32%', xl: '24%' }}
+              marginX={{ base: '0', md: '0.5%', lg: '0.66%', xl: '0.5%' }}
+              alignItems={'center'}
+              justify="center"
+              key={job._id}
+            >
+              <JobItem job={job} />
+            </Flex>
+          ))
+        ) : (
+          <EmptyList />
+        )}
       </Flex>
 
       <Flex
@@ -123,50 +128,54 @@ const UserDetailsScreen: React.FC<any> = () => {
           User reviews
         </Heading>
         <RateUserModal employer={userInfo.data} {...modal} />
-        {reviews.data?.map(review => {
-          return (
-            <Flex
-              key={review._id}
-              w="100%"
-              justifyContent="space-between"
-              mt="5"
-              pb="3"
-              borderBottom="1px"
-              borderColor="gray.200"
-            >
-              <Flex direction="column">
-                <AvatarImage
-                  onClick={() =>
-                    history.push(
-                      routePaths.USER_DETAILS.replace(
-                        ':id',
-                        review.createdBy._id
+        {reviews.data?.length > 0 ? (
+          reviews.data?.map(review => {
+            return (
+              <Flex
+                key={review._id}
+                w="100%"
+                justifyContent="space-between"
+                mt="5"
+                pb="3"
+                borderBottom="1px"
+                borderColor="gray.200"
+              >
+                <Flex direction="column">
+                  <AvatarImage
+                    onClick={() =>
+                      history.push(
+                        routePaths.USER_DETAILS.replace(
+                          ':id',
+                          review.createdBy._id
+                        )
                       )
-                    )
-                  }
-                  src={
-                    review.createdBy.imageUrl
-                      ? review.createdBy.imageUrl
-                      : `https://eu.ui-avatars.com/api/?name=${review.createdBy.firstName}+${review.createdBy.lastName}`
-                  }
-                />
-                <Text align="left" mt="2">
-                  {review.description}
-                </Text>
-              </Flex>
-              <Flex direction="column" justify="space-between">
-                <Flex direction="row" align="center" alignSelf="center">
-                  <Text mr="1" align="center">
-                    {review.rating}
+                    }
+                    src={
+                      review.createdBy.imageUrl
+                        ? review.createdBy.imageUrl
+                        : `https://eu.ui-avatars.com/api/?name=${review.createdBy.firstName}+${review.createdBy.lastName}`
+                    }
+                  />
+                  <Text align="left" mt="2">
+                    {review.description}
                   </Text>
-                  <Icon as={FaStar} />
                 </Flex>
+                <Flex direction="column" justify="space-between">
+                  <Flex direction="row" align="center" alignSelf="center">
+                    <Text mr="1" align="center">
+                      {review.rating}
+                    </Text>
+                    <Icon as={FaStar} />
+                  </Flex>
 
-                <Text>{dayjs(review.createdAt).format('DD.MM.YYYY')}</Text>
+                  <Text>{dayjs(review.createdAt).format('DD.MM.YYYY')}</Text>
+                </Flex>
               </Flex>
-            </Flex>
-          )
-        })}
+            )
+          })
+        ) : (
+          <EmptyList />
+        )}
       </Flex>
     </Center>
   )
