@@ -14,6 +14,19 @@ import {
 import { useCategories } from 'services/categoryService'
 import Spinner from 'components/Spinner'
 import useToaster from 'shared/useToaster'
+import * as Yup from 'yup'
+import Error from 'components/Error'
+
+const EditJobSchema = Yup.object().shape({
+  name: Yup.string().required('Required'),
+  city: Yup.string().required('Required'),
+  address: Yup.string().required('Required'),
+  description: Yup.string().required('Required'),
+  categoryId: Yup.string().required('Required'),
+  budget: Yup.number()
+    .required('Required')
+    .typeError('Invalid number')
+})
 
 const EditJobScreen: React.FC<any> = () => {
   const toast = useToaster()
@@ -21,7 +34,7 @@ const EditJobScreen: React.FC<any> = () => {
   const job = useJob(id)
   const categories = useCategories()
 
-  if (job.error) return <div>Error</div>
+  if (job.error) return <Error />
 
   if (job.status === 'loading') return <Spinner />
 
@@ -35,10 +48,14 @@ const EditJobScreen: React.FC<any> = () => {
     }
   }
   return (
-    <Center flexDirection="column" width="100%" pt="20px">
+    <Center flexDirection="column" width="100%" pt="20px" minH="85vh">
       <Heading size="lg">Edit job</Heading>
 
-      <Formik initialValues={job.data} onSubmit={onSubmit}>
+      <Formik
+        initialValues={job.data}
+        onSubmit={onSubmit}
+        validationSchema={EditJobSchema}
+      >
         {props => (
           <Form>
             <Box mt="3" marginX="2">

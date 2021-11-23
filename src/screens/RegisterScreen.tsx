@@ -11,6 +11,17 @@ import { Link } from '@chakra-ui/react'
 import JoCenter from 'components/Containers'
 import { PasswordInput, TextInput } from 'components/FormInput'
 import useToaster from 'shared/useToaster'
+import * as Yup from 'yup'
+
+const RegisterSchema = Yup.object().shape({
+  firstName: Yup.string().required('Required'),
+  lastName: Yup.string().required('Required'),
+  email: Yup.string()
+    .email('Invalid email')
+    .required('Required'),
+  phone: Yup.string().required('Required'),
+  password: Yup.string().required('Required')
+})
 
 const RegisterScreen: React.FC<any> = () => {
   const toast = useToaster()
@@ -37,6 +48,7 @@ const RegisterScreen: React.FC<any> = () => {
             password: ''
           }}
           onSubmit={onSubmit}
+          validationSchema={RegisterSchema}
         >
           {props => (
             <Form>

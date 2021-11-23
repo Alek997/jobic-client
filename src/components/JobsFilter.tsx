@@ -9,12 +9,23 @@ import { isEmpty, omitBy } from 'lodash'
 import { routePaths } from 'config/routes'
 import useSearchParams from 'shared/useSearchParams'
 import { SelectInput, TextInput } from './FormInput'
+import * as Yup from 'yup'
+import useToaster from 'shared/useToaster'
+
+const JobsFilterSchema = Yup.object().shape({
+  name: Yup.string(),
+  city: Yup.string(),
+  category: Yup.string(),
+  budgetFrom: Yup.number().typeError('Invalid number'),
+  budgetTo: Yup.number().typeError('Invalid number')
+})
 
 const JobsFilter = () => {
   const history = useHistory()
   const categories = useCategories()
 
   const params = useSearchParams()
+  const toast = useToaster()
 
   const onSubmit = async (values: any) => {
     const params = new URLSearchParams(omitBy(values, isEmpty))
@@ -25,7 +36,7 @@ const JobsFilter = () => {
         search: params.toString()
       })
     } catch {
-      console.log('error in Jobs filter')
+      toast.error()
     }
   }
   return (
@@ -33,11 +44,12 @@ const JobsFilter = () => {
       initialValues={{
         name: params.get('name') || '',
         city: params.get('city') || '',
-        category: '',
-        budgetFrom: '',
-        budgetTo: ''
+        category: params.get('category') || '',
+        budgetFrom: parseInt(params.get('budgetFrom')) || undefined,
+        budgetTo: parseInt(params.get('budgetTo')) || undefined
       }}
       onSubmit={onSubmit}
+      validationSchema={JobsFilterSchema}
     >
       {props => (
         <Center w="100%">

@@ -15,6 +15,13 @@ import { NumberInput, TextAreaInput } from './FormInput'
 import { NewReview, UserInfoDto } from 'types/dto'
 import { createReview } from 'services/reviewService'
 import useToaster from 'shared/useToaster'
+import * as Yup from 'yup'
+
+const RatingSchema = Yup.object().shape({
+  description: Yup.string(),
+  ratedUser: Yup.string(),
+  rating: Yup.number().typeError('Invalid number')
+})
 
 const defaultReview: NewReview = {
   description: '',
@@ -48,7 +55,11 @@ const RateUserModal: React.FC<Props> = ({ employer, isOpen, onClose }) => {
         <ModalCloseButton />
         <ModalBody>
           <Center width="100%">
-            <Formik initialValues={defaultReview} onSubmit={onSubmit}>
+            <Formik
+              initialValues={defaultReview}
+              onSubmit={onSubmit}
+              validationSchema={RatingSchema}
+            >
               {props => (
                 <Form>
                   <Box mt="3" marginX="2">

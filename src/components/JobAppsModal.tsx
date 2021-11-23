@@ -33,6 +33,7 @@ import {
 import { useHistory } from 'react-router'
 import { routePaths } from 'config/routes'
 import useToaster from 'shared/useToaster'
+import Error from './Error'
 
 const applicationStatus = {
   employed: {
@@ -59,7 +60,7 @@ const JobAppsDetails: React.FC<Props> = ({ job }) => {
   const jobApps = useJobApps(job._id)
   const history = useHistory()
 
-  if (jobApps.error) return <div>Error</div>
+  if (jobApps.error) return <Error />
   if (jobApps.status === 'loading') return <Spinner />
 
   const acceptOnlyOffer = async jobApp => {

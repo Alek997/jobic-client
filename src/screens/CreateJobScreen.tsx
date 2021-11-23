@@ -12,6 +12,18 @@ import {
   TextInput
 } from 'components/FormInput'
 import useToaster from 'shared/useToaster'
+import * as Yup from 'yup'
+
+const CreateJobSchema = Yup.object().shape({
+  name: Yup.string().required('Required'),
+  city: Yup.string().required('Required'),
+  address: Yup.string().required('Required'),
+  description: Yup.string().required('Required'),
+  categoryId: Yup.string().required('Required'),
+  budget: Yup.number()
+    .required('Required')
+    .typeError('Invalid number')
+})
 
 const defaultJob = {
   name: '',
@@ -19,7 +31,7 @@ const defaultJob = {
   address: '',
   description: '',
   categoryId: null,
-  budget: '200'
+  budget: undefined
 }
 
 const CreateJobScreen: React.FC<any> = () => {
@@ -35,9 +47,13 @@ const CreateJobScreen: React.FC<any> = () => {
     }
   }
   return (
-    <Center width="100%" pt="20px" flexDirection="column">
+    <Center width="100%" pt="20px" flexDirection="column" minH="85vh">
       <Heading size="lg">Create job</Heading>
-      <Formik initialValues={defaultJob} onSubmit={onSubmit}>
+      <Formik
+        validationSchema={CreateJobSchema}
+        initialValues={defaultJob}
+        onSubmit={onSubmit}
+      >
         {props => (
           <Form>
             <Box mt="3" marginX="2">

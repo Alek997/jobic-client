@@ -8,6 +8,13 @@ import { Field, Form, Formik } from 'formik'
 import { routePaths } from 'config/routes'
 import { useHistory } from 'react-router'
 import { isEmpty, omitBy } from 'lodash'
+import * as Yup from 'yup'
+import useToaster from 'shared/useToaster'
+
+const HomeSearchSchema = Yup.object().shape({
+  name: Yup.string(),
+  city: Yup.string()
+})
 
 interface SearchForm {
   name: string
@@ -16,6 +23,7 @@ interface SearchForm {
 
 const HomeScreenSearch = () => {
   const history = useHistory()
+  const toast = useToaster()
   const onSubmit = async (values: SearchForm) => {
     const params = new URLSearchParams(omitBy(values, isEmpty))
 
@@ -25,8 +33,7 @@ const HomeScreenSearch = () => {
         search: params.toString()
       })
     } catch {
-      console.log('error in home search')
-      //TODO add some error visual
+      toast.error()
     }
   }
   return (
@@ -36,6 +43,7 @@ const HomeScreenSearch = () => {
         city: ''
       }}
       onSubmit={onSubmit}
+      validationSchema={HomeSearchSchema}
     >
       {props => (
         <Center w="100%">

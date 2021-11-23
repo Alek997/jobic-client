@@ -17,6 +17,7 @@ import Icon from '@chakra-ui/icon'
 import { FaStar } from 'react-icons/fa'
 import EmptyList from 'components/EmptyList'
 import UserBasicInfo from 'components/UserBasicInfo'
+import Error from 'components/Error'
 
 const UserDetailsScreen: React.FC<any> = () => {
   const { id } = useParams()
@@ -27,7 +28,7 @@ const UserDetailsScreen: React.FC<any> = () => {
   const modal = useDisclosure()
   const history = useHistory()
 
-  if (userInfo.error || jobs.error || reviews.error) return <div>Error</div>
+  if (userInfo.error || jobs.error || reviews.error) return <Error />
 
   if (
     userInfo.status === 'loading' ||

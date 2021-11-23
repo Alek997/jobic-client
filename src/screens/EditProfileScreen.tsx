@@ -5,19 +5,24 @@ import { Form, Formik } from 'formik'
 import { updateUserInfo, useUserInfo } from 'services/userService'
 import { UserInfoDto } from 'types/dto'
 import Spinner from 'components/Spinner'
-import {
-  ImageInput,
-  PasswordInput,
-  TextAreaInput,
-  TextInput
-} from 'components/FormInput'
+import { ImageInput, TextAreaInput, TextInput } from 'components/FormInput'
 import useToaster from 'shared/useToaster'
+import * as Yup from 'yup'
+import Error from 'components/Error'
+
+const EditProfileSchema = Yup.object().shape({
+  firstName: Yup.string(),
+  lastName: Yup.string(),
+  email: Yup.string().email('Invalid email'),
+  phone: Yup.string(),
+  summary: Yup.string()
+})
 
 const EditProfileScreen: React.FC<any> = () => {
   const toast = useToaster()
   const userInfo = useUserInfo()
 
-  if (userInfo.error) return <div>Error</div>
+  if (userInfo.error) return <Error />
 
   if (userInfo.status === 'loading') return <Spinner />
 
@@ -31,9 +36,13 @@ const EditProfileScreen: React.FC<any> = () => {
     }
   }
   return (
-    <Center width="100%" flexDirection="column" pt="10">
+    <Center width="100%" flexDirection="column" pt="10" minH="85vh">
       <Heading size="lg">Edit Your Profile</Heading>
-      <Formik initialValues={userInfo.data} onSubmit={onSubmit}>
+      <Formik
+        initialValues={userInfo.data}
+        onSubmit={onSubmit}
+        validationSchema={EditProfileSchema}
+      >
         {props => (
           <Form>
             <Flex direction={['column', 'row']}>
@@ -57,9 +66,6 @@ const EditProfileScreen: React.FC<any> = () => {
                 </Box>
                 <Box mt="3" marginX="2">
                   <TextInput fieldName="phone" placeholder="Phone" />
-                </Box>
-                <Box mt="3" marginX="2">
-                  <PasswordInput fieldName="password" placeholder="Password" />
                 </Box>
               </Flex>
             </Flex>

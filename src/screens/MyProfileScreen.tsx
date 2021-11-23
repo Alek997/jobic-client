@@ -10,6 +10,7 @@ import Spinner from 'components/Spinner'
 import AvatarImage from 'components/AvatarImage'
 import EmptyList from 'components/EmptyList'
 import UserBasicInfo from 'components/UserBasicInfo'
+import Error from 'components/Error'
 
 const MyProfileScreen: React.FC<any> = () => {
   const userInfo = useUserInfo()
@@ -17,7 +18,7 @@ const MyProfileScreen: React.FC<any> = () => {
   const history = useHistory()
   const [onlyActive, setOnlyActive] = useState(false)
 
-  if (userInfo.error || jobs.error) return <div>Error</div>
+  if (userInfo.error || jobs.error) return <Error />
 
   if (userInfo.status === 'loading' || jobs.status === 'loading')
     return <Spinner />

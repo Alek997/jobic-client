@@ -10,6 +10,14 @@ import JoCenter from 'components/Containers'
 import { routePaths } from 'config/routes'
 import { useHistory } from 'react-router'
 import useToaster from 'shared/useToaster'
+import * as Yup from 'yup'
+
+const LoginSchema = Yup.object().shape({
+  email: Yup.string()
+    .email('Invalid email')
+    .required('Required'),
+  password: Yup.string().required('Required')
+})
 
 const LoginScreen: React.FC<any> = () => {
   const toast = useToaster()
@@ -17,7 +25,6 @@ const LoginScreen: React.FC<any> = () => {
   const onSubmit = async (values: auth.AuthCredentials) => {
     try {
       await auth.login(values).then(() => {
-        toast.success()
         history.push(routePaths.HOME)
       })
     } catch {
@@ -32,6 +39,7 @@ const LoginScreen: React.FC<any> = () => {
             email: '',
             password: ''
           }}
+          validationSchema={LoginSchema}
           onSubmit={onSubmit}
         >
           {props => (

@@ -9,13 +9,19 @@ import { TextAreaInput } from 'components/FormInput'
 import Spinner from 'components/Spinner'
 import JobItem from 'components/JobItem'
 import useToaster from 'shared/useToaster'
+import * as Yup from 'yup'
+import Error from 'components/Error'
+
+const JobAppSchema = Yup.object().shape({
+  message: Yup.string().required('Required')
+})
 
 const JobAppScreen: React.FC<any> = () => {
   const toast = useToaster()
   const { id } = useParams()
   const job = useJob(id)
 
-  if (job.error) return <div>Error</div>
+  if (job.error) return <Error />
 
   if (job.status === 'loading') return <Spinner />
 
@@ -42,6 +48,7 @@ const JobAppScreen: React.FC<any> = () => {
             message: ''
           }}
           onSubmit={onSubmit}
+          validationSchema={JobAppSchema}
         >
           {props => (
             <Form>

@@ -5,13 +5,14 @@ import { useDisclosure, Box } from '@chakra-ui/react'
 import { useJobApps } from 'services/jobAppService'
 import Spinner from './Spinner'
 import JobAppsModal from './JobAppsModal'
+import Error from './Error'
 
 const MyJobItem = (job: JobDto) => {
   const modal = useDisclosure()
 
   const jobApps = useJobApps(job._id)
 
-  if (jobApps.error) return <div>Error</div>
+  if (jobApps.error) return <Error />
 
   if (jobApps.status === 'loading') return <Spinner />
 

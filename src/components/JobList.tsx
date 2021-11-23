@@ -5,12 +5,13 @@ import { useInfiniteJobsQuery } from 'services/jobService'
 import useSearchParams from 'shared/useSearchParams'
 import Spinner from './Spinner'
 import EmptyList from './EmptyList'
+import Error from './Error'
 
 const JobList: React.FC = () => {
   const params = useSearchParams()
   const query = useInfiniteJobsQuery(params)
 
-  if (query.error) return <div>Error</div>
+  if (query.error) return <Error />
 
   if (query.status === 'loading') return <Spinner />
 
