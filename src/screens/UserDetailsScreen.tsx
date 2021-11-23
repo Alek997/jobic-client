@@ -16,6 +16,7 @@ import { routePaths } from 'config/routes'
 import Icon from '@chakra-ui/icon'
 import { FaStar } from 'react-icons/fa'
 import EmptyList from 'components/EmptyList'
+import UserBasicInfo from 'components/UserBasicInfo'
 
 const UserDetailsScreen: React.FC<any> = () => {
   const { id } = useParams()
@@ -56,7 +57,14 @@ const UserDetailsScreen: React.FC<any> = () => {
           p="10"
           mt="10"
         >
-          <Flex alignItems="center" w="100%" justifyContent="space-between">
+          <Flex
+            alignItems="center"
+            w="100%"
+            justifyContent="space-between"
+            borderBottom="1px"
+            borderColor="gray.300"
+            pb="2"
+          >
             <Heading size="md">Basic info</Heading>
             <AvatarImage
               src={
@@ -66,16 +74,7 @@ const UserDetailsScreen: React.FC<any> = () => {
               }
             />
           </Flex>
-
-          <Text>{userInfo.data?.firstName}</Text>
-          <Text>{userInfo.data?.lastName}</Text>
-          <Text>{userInfo.data?.email}</Text>
-          <Text>{userInfo.data?.phone}</Text>
-          <Text>{userInfo.data?.summary}</Text>
-
-          {userInfo.data?.avgRating && (
-            <Text>{`${userInfo.data?.avgRating}/5`}</Text>
-          )}
+          <UserBasicInfo {...userInfo.data} />
         </Box>
       </Flex>
       <Flex alignItems="center" w="100%" wrap="wrap" my="10">

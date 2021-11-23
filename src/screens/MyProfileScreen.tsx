@@ -1,5 +1,5 @@
 import { Button } from '@chakra-ui/button'
-import { Flex, Heading, Text, Box, Center } from '@chakra-ui/layout'
+import { Flex, Heading, Box, Center } from '@chakra-ui/layout'
 import React, { useState } from 'react'
 import { useUserInfo } from 'services/userService'
 import { routePaths } from 'config/routes'
@@ -9,6 +9,7 @@ import { useHistory } from 'react-router'
 import Spinner from 'components/Spinner'
 import AvatarImage from 'components/AvatarImage'
 import EmptyList from 'components/EmptyList'
+import UserBasicInfo from 'components/UserBasicInfo'
 
 const MyProfileScreen: React.FC<any> = () => {
   const userInfo = useUserInfo()
@@ -53,11 +54,7 @@ const MyProfileScreen: React.FC<any> = () => {
             </Button>
           </Flex>
           <AvatarImage />
-          <Text>{userInfo.data?.firstName}</Text>
-          <Text>{userInfo.data?.lastName}</Text>
-          <Text>{userInfo.data?.email}</Text>
-          <Text>{userInfo.data?.phone}</Text>
-          <Text>{userInfo.data?.summary}</Text>
+          <UserBasicInfo {...userInfo.data} />
         </Box>
       </Flex>
       <Flex
