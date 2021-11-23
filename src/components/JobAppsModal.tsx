@@ -19,7 +19,6 @@ import {
 } from 'services/jobAppService'
 import { queryClient } from 'config/query'
 import Spinner from './Spinner'
-import { useToast } from '@chakra-ui/toast'
 import { useColorModeValue } from '@chakra-ui/color-mode'
 import AvatarImage from './AvatarImage'
 import {
@@ -33,6 +32,7 @@ import {
 } from '@chakra-ui/react'
 import { useHistory } from 'react-router'
 import { routePaths } from 'config/routes'
+import useToaster from 'shared/useToaster'
 
 const applicationStatus = {
   employed: {
@@ -54,7 +54,8 @@ interface Props {
 }
 
 const JobAppsDetails: React.FC<Props> = ({ job }) => {
-  const toast = useToast()
+  const toast = useToaster()
+
   const jobApps = useJobApps(job._id)
   const history = useHistory()
 
@@ -65,61 +66,30 @@ const JobAppsDetails: React.FC<Props> = ({ job }) => {
     try {
       await acceptOnlyJobApp(jobApp).then(() => {
         queryClient.invalidateQueries(['jobApps', jobApp.jobId])
-        toast({
-          title: 'Successful',
-          status: 'success',
-          duration: 2000,
-          isClosable: true
-        })
+        toast.success()
       })
     } catch {
-      toast({
-        title: 'Error',
-        status: 'error',
-        duration: 2000,
-        isClosable: true
-      })
+      toast.error()
     }
   }
   const acceptOffer = async jobApp => {
     try {
       await acceptJobApp(jobApp).then(() => {
         queryClient.invalidateQueries(['jobApps', jobApp.jobId])
-        toast({
-          title: 'Successful',
-          status: 'success',
-          duration: 2000,
-          isClosable: true
-        })
+        toast.success()
       })
     } catch {
-      toast({
-        title: 'Error',
-        status: 'error',
-        duration: 2000,
-        isClosable: true
-      })
+      toast.error()
     }
   }
   const denyOffer = async jobApp => {
     try {
       await denyJobApp(jobApp).then(() => {
         queryClient.invalidateQueries(['jobApps', jobApp.jobId])
-
-        toast({
-          title: 'Successful',
-          status: 'success',
-          duration: 2000,
-          isClosable: true
-        })
+        toast.success()
       })
     } catch {
-      toast({
-        title: 'Error',
-        status: 'error',
-        duration: 2000,
-        isClosable: true
-      })
+      toast.error()
     }
   }
 

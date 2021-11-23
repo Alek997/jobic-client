@@ -3,7 +3,6 @@ import { Button } from '@chakra-ui/button'
 import { Box, Flex, Heading } from '@chakra-ui/layout'
 import { Form, Formik } from 'formik'
 import React from 'react'
-import { useToast } from '@chakra-ui/toast'
 import * as auth from 'services/auth'
 import { useHistory } from 'react-router-dom'
 import { routePaths } from 'config/routes'
@@ -11,28 +10,19 @@ import { NavLink } from 'react-router-dom'
 import { Link } from '@chakra-ui/react'
 import JoCenter from 'components/Containers'
 import { PasswordInput, TextInput } from 'components/FormInput'
+import useToaster from 'shared/useToaster'
 
 const RegisterScreen: React.FC<any> = () => {
-  const toast = useToast()
+  const toast = useToaster()
   const history = useHistory()
   const onSubmit = async (values: auth.AuthRegister) => {
     try {
       await auth.register(values).then(() => {
-        toast({
-          title: 'Successful',
-          status: 'success',
-          duration: 2000,
-          isClosable: true
-        })
+        toast.success()
         history.push(routePaths.LOGIN)
       })
     } catch {
-      toast({
-        title: 'Error',
-        status: 'error',
-        duration: 2000,
-        isClosable: true
-      })
+      toast.error()
     }
   }
   return (

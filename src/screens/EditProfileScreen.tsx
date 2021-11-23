@@ -3,7 +3,6 @@ import { Button } from '@chakra-ui/button'
 import { Box, Center, Flex, Heading } from '@chakra-ui/layout'
 import { Form, Formik } from 'formik'
 import { updateUserInfo, useUserInfo } from 'services/userService'
-import { useToast } from '@chakra-ui/toast'
 import { UserInfoDto } from 'types/dto'
 import Spinner from 'components/Spinner'
 import {
@@ -12,9 +11,10 @@ import {
   TextAreaInput,
   TextInput
 } from 'components/FormInput'
+import useToaster from 'shared/useToaster'
 
 const EditProfileScreen: React.FC<any> = () => {
-  const toast = useToast()
+  const toast = useToaster()
   const userInfo = useUserInfo()
 
   if (userInfo.error) return <div>Error</div>
@@ -24,20 +24,10 @@ const EditProfileScreen: React.FC<any> = () => {
   const onSubmit = async (values: UserInfoDto) => {
     try {
       await updateUserInfo(values).then(() => {
-        toast({
-          title: 'Successful',
-          status: 'success',
-          duration: 2000,
-          isClosable: true
-        })
+        toast.success()
       })
     } catch {
-      toast({
-        title: 'Error',
-        status: 'error',
-        duration: 2000,
-        isClosable: true
-      })
+      toast.error()
     }
   }
   return (

@@ -12,9 +12,9 @@ import {
 } from '@chakra-ui/modal'
 import { Form, Formik } from 'formik'
 import { NumberInput, TextAreaInput } from './FormInput'
-import { useToast } from '@chakra-ui/toast'
 import { NewReview, UserInfoDto } from 'types/dto'
 import { createReview } from 'services/reviewService'
+import useToaster from 'shared/useToaster'
 
 const defaultReview: NewReview = {
   description: '',
@@ -29,24 +29,14 @@ interface Props {
 }
 
 const RateUserModal: React.FC<Props> = ({ employer, isOpen, onClose }) => {
-  const toast = useToast()
+  const toast = useToaster()
   const onSubmit = async (values: NewReview) => {
     try {
       await createReview({ ...values, ratedUser: employer._id }).then(() => {
-        toast({
-          title: 'Successful',
-          status: 'success',
-          duration: 2000,
-          isClosable: true
-        })
+        toast.success()
       })
     } catch {
-      toast({
-        title: 'Error',
-        status: 'error',
-        duration: 2000,
-        isClosable: true
-      })
+      toast.error()
     }
   }
 

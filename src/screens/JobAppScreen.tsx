@@ -2,16 +2,16 @@ import React from 'react'
 import { Button } from '@chakra-ui/button'
 import { Box, Center, Flex, Heading } from '@chakra-ui/layout'
 import { Form, Formik } from 'formik'
-import { useToast } from '@chakra-ui/toast'
 import { useJob } from 'services/jobService'
 import { useParams } from 'react-router-dom'
 import { createJobApp } from 'services/jobAppService'
 import { TextAreaInput } from 'components/FormInput'
 import Spinner from 'components/Spinner'
 import JobItem from 'components/JobItem'
+import useToaster from 'shared/useToaster'
 
 const JobAppScreen: React.FC<any> = () => {
-  const toast = useToast()
+  const toast = useToaster()
   const { id } = useParams()
   const job = useJob(id)
 
@@ -22,20 +22,10 @@ const JobAppScreen: React.FC<any> = () => {
   const onSubmit = async (values: { message: string }) => {
     try {
       await createJobApp({ ...values, jobId: id }).then(() => {
-        toast({
-          title: 'Successful',
-          status: 'success',
-          duration: 2000,
-          isClosable: true
-        })
+        toast.success()
       })
     } catch {
-      toast({
-        title: 'Error',
-        status: 'error',
-        duration: 2000,
-        isClosable: true
-      })
+      toast.error()
     }
   }
   return (

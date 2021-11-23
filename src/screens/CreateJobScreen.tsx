@@ -2,7 +2,6 @@ import React from 'react'
 import { Button } from '@chakra-ui/button'
 import { Box, Center, Flex, Heading } from '@chakra-ui/layout'
 import { Form, Formik } from 'formik'
-import { useToast } from '@chakra-ui/toast'
 import { createJob } from 'services/jobService'
 import { Job } from 'types/domain'
 import { useCategories } from 'services/categoryService'
@@ -12,6 +11,7 @@ import {
   TextAreaInput,
   TextInput
 } from 'components/FormInput'
+import useToaster from 'shared/useToaster'
 
 const defaultJob = {
   name: '',
@@ -23,25 +23,15 @@ const defaultJob = {
 }
 
 const CreateJobScreen: React.FC<any> = () => {
-  const toast = useToast()
+  const toast = useToaster()
   const categories = useCategories()
   const onSubmit = async (values: Job) => {
     try {
       await createJob(values).then(() => {
-        toast({
-          title: 'Successful',
-          status: 'success',
-          duration: 2000,
-          isClosable: true
-        })
+        toast.success()
       })
     } catch {
-      toast({
-        title: 'Error',
-        status: 'error',
-        duration: 2000,
-        isClosable: true
-      })
+      toast.error()
     }
   }
   return (
