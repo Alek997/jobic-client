@@ -13,7 +13,6 @@ import {
 import { NotificationDto } from 'types/dto'
 import dayjs from 'dayjs'
 import { disableNotification } from 'services/notificationService'
-import { queryClient } from 'config/query'
 import { useJob } from 'services/jobService'
 
 interface Props {
@@ -30,7 +29,6 @@ const NotificationModal: React.FC<Props> = ({
   useEffect(() => {
     if (notification.status === 'active') {
       disableNotification(notification)
-      queryClient.invalidateQueries('notifications')
     }
   }, [])
 

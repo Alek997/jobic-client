@@ -17,6 +17,26 @@ import { useDisclosure, useInterval } from '@chakra-ui/hooks'
 import NotificationModal from './NotificationModal'
 import { NotificationDto } from 'types/dto'
 
+export const NotificationMenuItem = ({
+  notification
+}: {
+  notification: NotificationDto
+}) => {
+  const modal = useDisclosure()
+
+  return (
+    <>
+      <MenuItem
+        onClick={modal.onOpen}
+        bgColor={notification.status === 'active' ? 'white' : 'gray.200'}
+      >
+        {slice(`${notification.title} - ${notification.description}`, 0, 25)}
+      </MenuItem>
+      <NotificationModal notification={notification} {...modal} />
+    </>
+  )
+}
+
 const NavBar: React.FC<any> = () => {
   const history = useHistory()
   const [isLargeScreen] = useMediaQuery('(min-width: 768px)')
@@ -24,7 +44,6 @@ const NavBar: React.FC<any> = () => {
   const [activeNotifications, setActiveNotifications] = useState<
     NotificationDto[]
   >([])
-  const modal = useDisclosure()
 
   useEffect(() => {
     fetchNotifications().then(res => setNotifications(res))
@@ -74,8 +93,13 @@ const NavBar: React.FC<any> = () => {
           <Link onClick={() => history.push(routePaths.MY_PROFILE)}>
             <AvatarImage mr="3" h="40px" w="40px" />
           </Link>
-          <Menu>
-            <MenuButton mr="3" as={Button} position="relative">
+          <Menu closeOnBlur closeOnSelect>
+            <MenuButton
+              mr="3"
+              as={Button}
+              position="relative"
+              onClick={() => setActiveNotifications([])}
+            >
               <Icon as={FaBell} />
               {activeNotifications.length > 0 && (
                 <Text position="absolute" top="5px" right="5px">
@@ -84,17 +108,11 @@ const NavBar: React.FC<any> = () => {
               )}
             </MenuButton>
             <MenuList>
-              {notifications.reverse().map(notification => (
-                <>
-                  <MenuItem key={notification._id} onClick={modal.onOpen}>
-                    {slice(
-                      `${notification.title} - ${notification.description}`,
-                      0,
-                      25
-                    )}
-                  </MenuItem>
-                  <NotificationModal notification={notification} {...modal} />
-                </>
+              {notifications.map(notification => (
+                <NotificationMenuItem
+                  key={notification._id}
+                  notification={notification}
+                />
               ))}
               {notifications.length <= 0 && (
                 <MenuItem disabled>No notifications</MenuItem>

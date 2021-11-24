@@ -38,7 +38,7 @@ const UserBasicInfo: React.FC<UserInfoDto> = ({
           <Heading size="sm">Rating</Heading>
           {avgRating ? (
             <Flex align="center">
-              <Text mr="2">{`${avgRating}/5`}</Text>
+              <Text mr="2">{`${avgRating.toFixed(1)}/5`}</Text>
               <Icon as={FaStar} />
             </Flex>
           ) : (

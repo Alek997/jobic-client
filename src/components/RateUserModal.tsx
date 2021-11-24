@@ -16,6 +16,7 @@ import { NewReview, UserInfoDto } from 'types/dto'
 import { createReview } from 'services/reviewService'
 import useToaster from 'shared/useToaster'
 import * as Yup from 'yup'
+import { queryClient } from 'config/query'
 
 const RatingSchema = Yup.object().shape({
   description: Yup.string(),
@@ -39,9 +40,11 @@ const RateUserModal: React.FC<Props> = ({ employer, isOpen, onClose }) => {
   const toast = useToaster()
   const onSubmit = async (values: NewReview) => {
     try {
-      await createReview({ ...values, ratedUser: employer._id }).then(() => {
-        toast.success()
-      })
+      await createReview({ ...values, ratedUser: employer._id })
+      queryClient.invalidateQueries(['reviews', employer._id])
+      toast.success()
+
+      onClose()
     } catch {
       toast.error()
     }

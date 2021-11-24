@@ -11,6 +11,7 @@ import JobItem from 'components/JobItem'
 import useToaster from 'shared/useToaster'
 import * as Yup from 'yup'
 import Error from 'components/Error'
+import { useHistory } from 'react-router'
 
 const JobAppSchema = Yup.object().shape({
   message: Yup.string().required('Required')
@@ -18,6 +19,7 @@ const JobAppSchema = Yup.object().shape({
 
 const JobAppScreen: React.FC<any> = () => {
   const toast = useToaster()
+  const history = useHistory()
   const { id } = useParams()
   const job = useJob(id)
 
@@ -29,6 +31,7 @@ const JobAppScreen: React.FC<any> = () => {
     try {
       await createJobApp({ ...values, jobId: id }).then(() => {
         toast.success()
+        history.goBack()
       })
     } catch {
       toast.error()

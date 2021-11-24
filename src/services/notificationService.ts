@@ -13,4 +13,4 @@ export const disableNotification = (notification: NotificationDto) =>
 export const fetchNotifications = () =>
   http
     .get<{ data: NotificationDto[] }>(`${API_URL}/notification`)
-    .then(({ data }) => data.data)
+    .then(({ data }) => data.data.reverse())
