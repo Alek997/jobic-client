@@ -65,7 +65,7 @@ const JobDetails: React.FC<Props> = ({ job }) => {
       <Box>
         <Flex>
           <Heading color="gray.400" size="md" lineHeight="10" marginRight="5">
-            Cena:
+            Budget:
           </Heading>
           <Heading color="gray.600" size="md" lineHeight="10">
             {`${job.budget} RSD`}
@@ -75,7 +75,11 @@ const JobDetails: React.FC<Props> = ({ job }) => {
           <Heading color="gray.400" size="md" marginRight="5" py="1">
             Status:
           </Heading>
-          <Badge borderRadius="full" p="2" colorScheme="teal">
+          <Badge
+            borderRadius="full"
+            p="2"
+            colorScheme={job?.status === 'active' ? 'teal' : 'gray'}
+          >
             {job?.status.toUpperCase()}
           </Badge>
         </Flex>

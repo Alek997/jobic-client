@@ -35,7 +35,7 @@ import { routePaths } from 'config/routes'
 import useToaster from 'shared/useToaster'
 import Error from './Error'
 
-const applicationStatus = {
+export const applicationStatus = {
   employed: {
     message: 'employed',
     color: 'teal'
@@ -209,6 +209,7 @@ const JobAppsDetails: React.FC<Props> = ({ job }) => {
 }
 
 const JobAppsModal: React.FC<any> = ({ job, isOpen, onClose }) => {
+  const history = useHistory()
   return (
     <Modal isOpen={isOpen} onClose={onClose} size="full">
       <ModalOverlay />
@@ -219,6 +220,15 @@ const JobAppsModal: React.FC<any> = ({ job, isOpen, onClose }) => {
           <JobAppsDetails job={job} />
         </ModalBody>
         <ModalFooter>
+          <Button
+            colorScheme="teal"
+            mr={3}
+            onClick={() =>
+              history.push(routePaths.EDIT_JOB.replace(':id', job._id))
+            }
+          >
+            Edit job
+          </Button>
           <Button variant="ghost" onClick={onClose}>
             Close
           </Button>

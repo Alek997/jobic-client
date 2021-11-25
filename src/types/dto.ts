@@ -32,6 +32,7 @@ export interface JobAppDto {
   status: 'employed' | 'pending' | 'not_employed'
   createdBy: UserInfoDto
   jobId: string
+  createdAt: string
 }
 
 export interface CategoryDto {

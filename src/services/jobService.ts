@@ -62,6 +62,7 @@ export const useInfiniteJobsQuery = params => {
       fetchInfiniteJobs({
         pageParam,
         size: 12,
+        status: 'active',
         ...paramsObject
       }),
     {

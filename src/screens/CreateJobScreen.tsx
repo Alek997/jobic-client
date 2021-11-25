@@ -13,6 +13,9 @@ import {
 } from 'components/FormInput'
 import useToaster from 'shared/useToaster'
 import * as Yup from 'yup'
+import { useHistory } from 'react-router'
+import { routePaths } from 'config/routes'
+import { queryClient } from 'config/query'
 
 const CreateJobSchema = Yup.object().shape({
   name: Yup.string().required('Required'),
@@ -37,10 +40,15 @@ const defaultJob = {
 const CreateJobScreen: React.FC<any> = () => {
   const toast = useToaster()
   const categories = useCategories()
+  const history = useHistory()
   const onSubmit = async (values: Job) => {
     try {
       await createJob(values).then(() => {
         toast.success()
+        history.push(routePaths.JOBS)
+        queryClient.invalidateQueries({
+          predicate: query => query.queryKey[0] === 'infinityJobs'
+        })
       })
     } catch {
       toast.error()

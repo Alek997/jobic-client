@@ -35,19 +35,19 @@ const Footer: React.FC<any> = () => {
           display="flex"
           justifyContent="space-evenly"
         >
-          <Stack align={'flex-start'}>
+          <Stack align={'center'}>
             <ListHeader>For Job seekers</ListHeader>
             <Link as={NavLink} to={routePaths.JOBS}>
               Browse Jobs
             </Link>
           </Stack>
-          <Stack align={'flex-start'}>
+          <Stack align={'center'}>
             <ListHeader>For Employers</ListHeader>
             <Link as={NavLink} to={routePaths.CREATE_JOB}>
               Post a Job
             </Link>
           </Stack>
-          <Stack align={'flex-start'}>
+          <Stack align={'center'}>
             <ListHeader>Legal</ListHeader>
             <Link as={NavLink} to={routePaths.PRIVACY_POLICY}>
               Privacy Policy

@@ -9,6 +9,9 @@ import { ImageInput, TextAreaInput, TextInput } from 'components/FormInput'
 import useToaster from 'shared/useToaster'
 import * as Yup from 'yup'
 import Error from 'components/Error'
+import { useHistory } from 'react-router'
+import { queryClient } from 'config/query'
+import { routePaths } from 'config/routes'
 
 const EditProfileSchema = Yup.object().shape({
   firstName: Yup.string(),
@@ -21,6 +24,7 @@ const EditProfileSchema = Yup.object().shape({
 const EditProfileScreen: React.FC<any> = () => {
   const toast = useToaster()
   const userInfo = useUserInfo()
+  const history = useHistory()
 
   if (userInfo.error) return <Error />
 
@@ -30,13 +34,17 @@ const EditProfileScreen: React.FC<any> = () => {
     try {
       await updateUserInfo(values).then(() => {
         toast.success()
+        console.log('desava')
+
+        history.push(routePaths.MY_PROFILE)
+        queryClient.invalidateQueries('userInfo')
       })
     } catch {
       toast.error()
     }
   }
   return (
-    <Center width="100%" flexDirection="column" pt="10" minH="85vh">
+    <Center flexDirection="column" width="100%" pt="20px" minH="85vh">
       <Heading size="lg">Edit Your Profile</Heading>
       <Formik
         initialValues={userInfo.data}

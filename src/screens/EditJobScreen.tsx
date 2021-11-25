@@ -16,6 +16,8 @@ import Spinner from 'components/Spinner'
 import useToaster from 'shared/useToaster'
 import * as Yup from 'yup'
 import Error from 'components/Error'
+import { useHistory } from 'react-router'
+import { routePaths } from 'config/routes'
 
 const EditJobSchema = Yup.object().shape({
   name: Yup.string().required('Required'),
@@ -33,6 +35,7 @@ const EditJobScreen: React.FC<any> = () => {
   const { id } = useParams()
   const job = useJob(id)
   const categories = useCategories()
+  const history = useHistory()
 
   if (job.error) return <Error />
 
@@ -42,6 +45,7 @@ const EditJobScreen: React.FC<any> = () => {
     try {
       await updateJob(values).then(() => {
         toast.success()
+        history.push(routePaths.MY_PROFILE)
       })
     } catch {
       toast.error()
