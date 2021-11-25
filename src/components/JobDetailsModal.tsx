@@ -15,6 +15,7 @@ import {
 } from '@chakra-ui/modal'
 import { useHistory } from 'react-router'
 import { Link } from '@chakra-ui/react'
+import { useMyJobApps } from 'services/jobAppService'
 
 interface Props {
   job: JobDto
@@ -97,6 +98,11 @@ const JobDetailsModal: React.FC<any> = ({ job, isOpen, onClose }) => {
   const history = useHistory()
   const userInfo = useUserInfo()
   const isOwner = userInfo.data?._id == job.createdBy
+
+  const myJobApps = useMyJobApps()
+
+  const isApplied = !!myJobApps.data?.some(jobApp => jobApp.jobId === job._id)
+
   return (
     <Modal isOpen={isOpen} onClose={onClose} size={'4xl'}>
       <ModalOverlay />
@@ -106,7 +112,18 @@ const JobDetailsModal: React.FC<any> = ({ job, isOpen, onClose }) => {
           <JobDetails job={job} />
         </ModalBody>
         <ModalFooter>
-          {isOwner ? (
+          {!isOwner && !isApplied && (
+            <Button
+              colorScheme="teal"
+              mr={3}
+              onClick={() =>
+                history.push(routePaths.APPLY_JOB.replace(':id', job._id))
+              }
+            >
+              Apply
+            </Button>
+          )}
+          {/* {isOwner ? (
             <Button
               colorScheme="teal"
               mr={3}
@@ -126,7 +143,7 @@ const JobDetailsModal: React.FC<any> = ({ job, isOpen, onClose }) => {
             >
               Apply
             </Button>
-          )}
+          )} */}
 
           <Button variant="ghost" onClick={onClose}>
             Close

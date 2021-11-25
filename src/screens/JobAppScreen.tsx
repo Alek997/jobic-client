@@ -12,6 +12,7 @@ import useToaster from 'shared/useToaster'
 import * as Yup from 'yup'
 import Error from 'components/Error'
 import { useHistory } from 'react-router'
+import { queryClient } from 'config/query'
 
 const JobAppSchema = Yup.object().shape({
   message: Yup.string().required('Required')
@@ -31,6 +32,7 @@ const JobAppScreen: React.FC<any> = () => {
     try {
       await createJobApp({ ...values, jobId: id }).then(() => {
         toast.success()
+        queryClient.invalidateQueries('myJobApps')
         history.goBack()
       })
     } catch {

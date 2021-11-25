@@ -34,8 +34,6 @@ const EditProfileScreen: React.FC<any> = () => {
     try {
       await updateUserInfo(values).then(() => {
         toast.success()
-        console.log('desava')
-
         history.push(routePaths.MY_PROFILE)
         queryClient.invalidateQueries('userInfo')
       })
