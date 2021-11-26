@@ -49,6 +49,7 @@ const CreateJobScreen: React.FC<any> = () => {
         queryClient.invalidateQueries({
           predicate: query => query.queryKey[0] === 'infinityJobs'
         })
+        queryClient.invalidateQueries('myJobs')
       })
     } catch {
       toast.error()
